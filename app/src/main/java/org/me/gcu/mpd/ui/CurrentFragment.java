@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.me.gcu.mpd.IncidentsCustomAdapter;
 import org.me.gcu.mpd.R;
 import org.me.gcu.mpd.parseXML;
 
@@ -37,8 +38,8 @@ public class CurrentFragment extends Fragment {
         parseXMLCurrent= new parseXML();
         parseXMLCurrent.parseData(xmlData);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter<>(mContext, R.layout.listview_row, parseXMLCurrent.getIncidents());
-        listView.setAdapter(arrayAdapter);
+        IncidentsCustomAdapter incidentsCustomAdapter = new IncidentsCustomAdapter(mContext, R.layout.listview_row, parseXMLCurrent.getIncidents());
+        listView.setAdapter(incidentsCustomAdapter);
 
         return view;
     }
@@ -57,8 +58,8 @@ public class CurrentFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ArrayAdapter arrayAdapter = new ArrayAdapter<>(mContext, R.layout.listview_row, parseXMLCurrent.getIncidents());
-        listView.setAdapter(arrayAdapter);
+        IncidentsCustomAdapter incidentsCustomAdapter = new IncidentsCustomAdapter(mContext, R.layout.listview_row, parseXMLCurrent.getIncidents());
+        listView.setAdapter(incidentsCustomAdapter);
     }
 
 }

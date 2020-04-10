@@ -15,6 +15,12 @@ public class Incidents {
     public Incidents() {
     }
 
+    public Incidents(String description, String latitude, String author) {
+        this.description = description;
+        this.latitude = latitude;
+        this.author = author;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -81,6 +87,14 @@ public class Incidents {
 
     @Override
     public String toString() {
-        return title;
+        return "title='" + title + "\n" +
+                ", description='" + description + "\n" +
+                ", link='" + link + "\n" +
+                ", latitude='" + latitude + "\n" +
+                ", longitude='" + longitude + "\n" +
+                ", author='" + author + "\n" +
+                ", comments='" + comments + "\n" +
+                ", pubDate='" + pubDate + '\'' +
+                '}';
     }
 }
