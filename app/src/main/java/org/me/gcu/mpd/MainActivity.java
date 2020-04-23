@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private IncidentsFragment incidentsFragment;
     private CurrentFragment currentFragment;
     private PlannedFragment plannedFragment;
+    private BottomNavigationView bottomNavigationView;
 
     private String returnedDataUrl;
     private String returnedDataUrl2;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         myAsyncTask myAsyncTask = new myAsyncTask(this);
         myAsyncTask.execute(url1, url2, url3);
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         setFragment(homeFragment);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         returnedDataUrl2 = data[1];
         returnedDataUrl3 = data[2];
         Log.e("getData","DATA RECEIVED");
+        bottomNavigationView.setEnabled(true);
 
         }
 

@@ -21,13 +21,13 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_weight="33.3">
 
-        <TextView android:id="@+id/txtDescription"
+        <TextView android:id="@+id/txtStart"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
             android:textColor="@color/colorPrimary" />
 
-        <TextView android:id="@+id/txtLat"
+        <TextView android:id="@+id/txtEnd"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"

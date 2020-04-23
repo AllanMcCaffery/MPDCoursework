@@ -19,7 +19,7 @@ public class parseXML {
     }
 
     public ArrayList<Incidents> getIncidents() {
-        Collections.sort(incidentArrayList, new TitleComparator());
+        //Collections.sort(incidentArrayList, new TitleComparator());
         return incidentArrayList;
     }
 

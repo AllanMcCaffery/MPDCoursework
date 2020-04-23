@@ -4,10 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+
 
 import org.me.gcu.mpd.model.Incidents;
 
@@ -17,34 +19,50 @@ public class IncidentsCustomAdapter extends ArrayAdapter<Incidents> {
 
     private Context mContext;
     private int mResource;
+    private int lastPosition = -1;
 
-    public IncidentsCustomAdapter(@NonNull Context context, int resource, ArrayList<Incidents> objects) {
+    private static class ViewHolder {
+        TextView title;
+        TextView start;
+        TextView end;
+    }
+
+    public IncidentsCustomAdapter(Context context, int resource, ArrayList<Incidents> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
     }
 
-    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        View result;
+        ViewHolder holder;
         String title = getItem(position).getTitle();
         String description = getItem(position).getDescription();
-        String lat = getItem(position).getLatitude();
 
         String start = "";
         String end = "";
 
-        Incidents incidents = new Incidents(title, description, lat);
+        Incidents incidents = new Incidents(title, description);
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResource, parent, false);
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            convertView = inflater.inflate(mResource, parent, false);
+            holder= new ViewHolder();
+            holder.title = convertView.findViewById(R.id.txtLabel);
+            holder.start = convertView.findViewById(R.id.txtStart);
+            holder.end = convertView.findViewById(R.id.txtEnd);
 
-        TextView txtTitle = convertView.findViewById(R.id.txtLabel);
-        TextView txtDescription = convertView.findViewById(R.id.txtDescription);
-        TextView txtLat = convertView.findViewById(R.id.txtLat);
+            result = convertView;
 
-        if (description != null) {
+            convertView.setTag(holder);
+        } else{
+            holder = (ViewHolder) convertView.getTag();
+            result = convertView;
+        }
+
+        if (description.contains("Start")) {
             int dashIndex = description.indexOf("-");
             start = description.substring(0, dashIndex - 1);
             int forward = description.indexOf(">");
@@ -52,9 +70,14 @@ public class IncidentsCustomAdapter extends ArrayAdapter<Incidents> {
             end = description.substring(forward + 1, secondDashIndex - 1);
         }
 
-        txtTitle.setText(title);
-        txtDescription.setText(start);
-        txtLat.setText(end);
+        Animation animation = AnimationUtils.loadAnimation(mContext,
+                (position > lastPosition) ? R.anim.load_down_anim : R.anim.load_up_anim);
+        result.startAnimation(animation);
+        lastPosition = position;
+
+        holder.title.setText(incidents.getTitle());
+        holder.start.setText(start);
+        holder.end.setText(end);
 
         return convertView;
     }

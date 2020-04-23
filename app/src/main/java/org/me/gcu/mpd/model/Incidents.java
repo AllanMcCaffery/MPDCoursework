@@ -15,10 +15,9 @@ public class Incidents {
     public Incidents() {
     }
 
-    public Incidents(String description, String latitude, String author) {
+    public Incidents(String title, String description) {
+        this.title = title;
         this.description = description;
-        this.latitude = latitude;
-        this.author = author;
     }
 
     public String getTitle() {
